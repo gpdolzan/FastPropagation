@@ -8,14 +8,48 @@ void FastPropagation::initialize_fp(int rows, int columns, Cell c, unsigned int 
     matrix.initialize_matrix(rows, columns, c);
 }
 
-void FastPropagation::run(void)
+void FastPropagation::run(std::string heuristic)
 {
-    for(int i = 0; i < rows; i++)
+    if (heuristic == "FP")
     {
-        for(int j = 0; j < columns; j++)
+        FP();
+    }
+    else if (heuristic == "Diagonal")
+    {
+        Diag();
+    }
+}
+
+void FastPropagation::FP()
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
         {
             collapse(i, j);
             propagate(i, j);
+        }
+    }
+}
+
+void FastPropagation::Diag()
+{
+    // Anti-diagonais: (0,0) -> (0,1), (1,0) -> (0,2), (1,1), (2,0) -> etc.
+    for (int diagonal = 0; diagonal < rows + columns - 1; ++diagonal)
+    {
+        int start_row = std::max(0, diagonal - columns + 1);
+        int end_row = std::min(rows - 1, diagonal);
+        
+        // Percorrer a anti-diagonal
+        for (int row = start_row; row <= end_row; ++row)
+        {
+            int col = diagonal - row;
+            
+            if (col >= 0 && col < columns)
+            {
+                collapse(row, col);
+                propagate(row, col);
+            }
         }
     }
 }
