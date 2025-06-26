@@ -6,6 +6,7 @@ void Reader::read_files(std::string filepath)
     {
         // Grab all the filenames without path or extensions (Ex: "CCCC")
         std::string constraints_str = entry.path().stem().generic_string();
+
         constraints.push_back(constraints_str);
     }
 }
