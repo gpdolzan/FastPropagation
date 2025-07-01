@@ -17,6 +17,7 @@ public:
 
     void set_tile_constraints(std::string constraints, std::string id);
     void print_tile_constraints(void);
+    size_t get_memory_usage() const;
     Tile(/* args */);
     ~Tile();
 };

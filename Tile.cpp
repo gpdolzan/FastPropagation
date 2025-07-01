@@ -18,6 +18,18 @@ void Tile::print_tile_constraints(void)
     std::cout << "West: " << west << std::endl;
 }
 
+size_t Tile::get_memory_usage() const
+{
+    size_t size = 0;
+    size += sizeof(*this); // Base object size
+    size += id.capacity(); // String memory
+    size += north.capacity();
+    size += south.capacity();
+    size += east.capacity();
+    size += west.capacity();
+    return size;
+}
+
 Tile::Tile(/* args */)
 {
 }

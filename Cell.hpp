@@ -13,6 +13,7 @@ public:
 
     void print_domain(void);
     void print_domain_size(void);
+    size_t get_memory_usage() const;
     Cell();
     ~Cell();
 };

@@ -24,3 +24,17 @@ Cell::Cell()
 Cell::~Cell()
 {
 }
+
+size_t Cell::get_memory_usage() const
+{
+    size_t size = 0;
+    size += sizeof(*this); // Base object size
+    size += sizeof(Tile) * domain.capacity(); // Vector capacity for Tile objects
+    
+    // Add memory for each tile's strings
+    for (const auto& tile : domain) {
+        size += tile.get_memory_usage() - sizeof(Tile); // Subtract base size to avoid double counting
+    }
+    
+    return size;
+}
